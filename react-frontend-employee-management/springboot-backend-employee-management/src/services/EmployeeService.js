@@ -8,7 +8,17 @@ class EmployeeService{
         return axios.get(EMPLOYEE_BASE_REST_API_URL)
     }
     getAllEmployeesWithPagination(page,size){
-        return axios.get(EMPLOYEE_BASE_REST_API_URL+'?page=' + page + '&size='+ size)
+
+        const queryParams = {
+            page: page,
+            size: size,
+          };
+         
+          console.log(queryParams);
+
+        return axios.get(EMPLOYEE_BASE_REST_API_URL, {queryParams
+        })
+        //http://localhost:8080/api/v1/employees?page=0&size=2
     }
 
 

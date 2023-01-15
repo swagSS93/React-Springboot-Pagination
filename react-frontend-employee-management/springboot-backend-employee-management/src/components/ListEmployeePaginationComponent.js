@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import EmployeeService from "../services/EmployeeService";
-import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import BootstrapTable from "react-bootstrap-table-next";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,8 +7,11 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 const ListEmployeePaginationComponent = () => {
 
+  const [page,setPage] = useState(0)
+  const [size, setSize] = useState(4)
+
   const pagination = paginationFactory({
-    page: 2,
+    page: 1,
     sizePerPage: 4,
     lastPageText: ">>",
     firstPageText: "<<",
@@ -18,10 +20,13 @@ const ListEmployeePaginationComponent = () => {
     showTotal: true,
     alwaysShowAllBtns: true,
     onPageChange: function(page, sizePerPage) {
+      page = page - 1;
+      setPage(page)
       console.log("page", page);
       console.log("sizePerPage", sizePerPage);
     },
     onSizePerPageChange: function(page, sizePerPage) {
+      setSize(sizePerPage)
       console.log("page", page);
       console.log("sizePerPage", sizePerPage);
     },
@@ -80,13 +85,23 @@ const ListEmployeePaginationComponent = () => {
   }, []);
 
   const getAllEmployees = () => {
-    EmployeeService.getAllEmployees()
+
+      // EmployeeService.getAllEmployees()
+      // .then((response) => {
+      //   setEmployees(response.data.content);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+    
+      EmployeeService.getAllEmployeesWithPagination(page,size)
       .then((response) => {
         setEmployees(response.data.content);
       })
       .catch((error) => {
         console.log(error);
       });
+    
   };
 
    {
@@ -96,6 +111,8 @@ const ListEmployeePaginationComponent = () => {
         <Button href="/add-employee">Add Employee</Button>
         <h2></h2>
         <BootstrapTable
+          striped 
+          hover
           keyField="id"
           data={empployees}
           columns={columns}

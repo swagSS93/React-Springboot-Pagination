@@ -7,6 +7,7 @@ import FooterComponent from './components/FooterComponent';
 import AddEmployeeComponent from './components/AddEmployeeComponent';
 import FormComponent from './components/FormComponent'
 import ListEmployeePaginationComponent from './components/ListEmployeePaginationComponent'
+import HomePage from './components/HomePage'
 
 function App() {
   return (
@@ -16,10 +17,9 @@ function App() {
       <div className='container'>
       <Router>
         <Routes>
-          <Route path='/' element={<ListEmployeeComponent/>}></Route>
+          <Route path='/' element={<HomePage/>}></Route>
           {/* <Route path='/employees' element={<ListEmployeeComponent/>}></Route> */}
           <Route path='/employees' element={<ListEmployeePaginationComponent/>}></Route>
-          ListEmployeePaginationComponent
           <Route path='/add-employee' element={<AddEmployeeComponent/>}></Route> 
           <Route path='/update-employee/:id' element={<AddEmployeeComponent/>}></Route>
           <Route path='/form' element={<FormComponent/>}></Route> 
